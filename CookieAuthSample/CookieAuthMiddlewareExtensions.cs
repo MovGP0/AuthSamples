@@ -1,6 +1,7 @@
 ﻿using System.Net;
 using System.Security.Claims;
 using Microsoft.AspNetCore.DataProtection;
+using Shared;
 
 namespace CookieAuthServer;
 
@@ -39,7 +40,7 @@ public static class CookieAuthMiddlewareExtensions
         {
             new (key, value)
         };
-        ctx.User = new ClaimsPrincipal(new ClaimsIdentity(claims, "cookie"));
+        ctx.User = new ClaimsPrincipal(new ClaimsIdentity(claims, AuthScheme.Cookie));
     
         return next();
     }

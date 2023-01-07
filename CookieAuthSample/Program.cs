@@ -1,33 +1,12 @@
-using System.Net;
 using System.Security.Claims;
 using CookieAuthServer;
+using static Shared.HttpHelper;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddCookieAuthMiddleware();
 
 var app = builder.Build();
 app.UseCookieAuthMiddleware();
-
-HttpResponseMessage Ok(string message = "")
-{
-    return new HttpResponseMessage(HttpStatusCode.OK)
-    {
-        RequestMessage = new HttpRequestMessage
-        {
-            Content = new StringContent(message)
-        }
-    };
-}
-HttpResponseMessage Unauthorized(string message = "")
-{
-    return new HttpResponseMessage(HttpStatusCode.Unauthorized)
-    {
-        RequestMessage = new HttpRequestMessage
-        {
-            Content = new StringContent(message)
-        }
-    };
-}
 
 app.MapGet("/", () => "Hello World!");
 app.MapGet("/username", (HttpContext ctx) =>

@@ -1,35 +1,24 @@
-using System.Net;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authentication;
-
-HttpResponseMessage Ok(string message = "")
-{
-    return new HttpResponseMessage(HttpStatusCode.OK)
-    {
-        RequestMessage = new HttpRequestMessage
-        {
-            Content = new StringContent(message)
-        }
-    };
-}
-
-HttpResponseMessage Unauthorized(string message = "")
-{
-    return new HttpResponseMessage(HttpStatusCode.Unauthorized)
-    {
-        RequestMessage = new HttpRequestMessage
-        {
-            Content = new StringContent(message)
-        }
-    };
-}
+using Shared;
+using static Shared.HttpHelper;
 
 var builder = WebApplication.CreateBuilder(args);
-builder.Services.AddAuthentication("cookie").AddCookie("cookie");
+builder.Services.AddAuthentication(AuthScheme.Cookie).AddCookie("cookie");
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("mypolicy", config =>
+    {
+        config.RequireAuthenticatedUser()
+            .AddAuthenticationSchemes(AuthScheme.Cookie)
+            .RequireClaim(ClaimTypes.NameIdentifier, "some.username");
+    });
+});
 
 var app = builder.Build();
 
 app.UseAuthentication();
+app.UseAuthorization();
 
 app.MapGet("/", () => "Hello World!");
 
@@ -41,6 +30,9 @@ app.MapGet("/username", (HttpContext ctx) =>
         : Ok(claim.Value);
 });
 
+app.Map("/secret", () => "some secret")
+    .RequireAuthorization("mypolicy");
+
 app.MapGet("/login", async (HttpContext ctx) =>
 {
     // TODO: authorize user
@@ -49,10 +41,10 @@ app.MapGet("/login", async (HttpContext ctx) =>
     {
         new (ClaimTypes.NameIdentifier, "some.username")
     };
-    var identity = new ClaimsIdentity(claims, "cookie");
+    var identity = new ClaimsIdentity(claims, AuthScheme.Cookie);
     var principal = new ClaimsPrincipal(identity);
 
-    await ctx.SignInAsync("cookie", principal);
+    await ctx.SignInAsync(AuthScheme.Cookie, principal);
     return Ok();
 });
 

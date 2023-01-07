@@ -23,6 +23,6 @@ public sealed class AuthService
         var value = "some.username";
         var authSecret = protector.Protect($"{key}:{value}");
         var cookie = $"auth={authSecret}";
-        Accessor.HttpContext?.Response.Cookies.Append("", cookie);
+        Accessor.HttpContext?.Response.Cookies.Append("cookie", cookie);
     }
 }

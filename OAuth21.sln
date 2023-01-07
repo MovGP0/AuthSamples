@@ -12,6 +12,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CookieAuth", "CookieAuth", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AspCookieAuthSample", "AspCookieAuthSample\AspCookieAuthSample.csproj", "{3739B414-5660-441F-9F22-ACB59C0F5921}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shared", "Shared\Shared.csproj", "{404FCB6F-061F-41AF-97A0-98047B08DE1C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -38,9 +40,14 @@ Global
 		{3739B414-5660-441F-9F22-ACB59C0F5921}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3739B414-5660-441F-9F22-ACB59C0F5921}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3739B414-5660-441F-9F22-ACB59C0F5921}.Release|Any CPU.Build.0 = Release|Any CPU
+		{404FCB6F-061F-41AF-97A0-98047B08DE1C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{404FCB6F-061F-41AF-97A0-98047B08DE1C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{404FCB6F-061F-41AF-97A0-98047B08DE1C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{404FCB6F-061F-41AF-97A0-98047B08DE1C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{9B910C59-EDA4-43A5-BE2B-BE358825B8AF} = {97C2D533-F015-4E83-9BE2-54B5C7815A4E}
 		{3739B414-5660-441F-9F22-ACB59C0F5921} = {97C2D533-F015-4E83-9BE2-54B5C7815A4E}
+		{404FCB6F-061F-41AF-97A0-98047B08DE1C} = {97C2D533-F015-4E83-9BE2-54B5C7815A4E}
 	EndGlobalSection
 EndGlobal
